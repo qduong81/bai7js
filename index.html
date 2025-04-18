@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h2>Nhập một mảng bất kỳ và thực hiện</h2>
+
+    <label>Nhập mảng (các số, cách nhau bằng dấu phẩy):</label><br><br>
+    <input type="text" id="mangInput" placeholder="VD: 5,2,9,4"><br><br>
+
+    <button onclick="xuatMang()">a. Xuất mảng</button>
+    <button onclick="daoNguoc()">b. Đảo ngược</button>
+    <button onclick="sapXep()">c. Sắp xếp tăng dần</button>
+    <button onclick="tongChan()">d. Tổng phần tử chẵn</button>
+    <button onclick="kiemTraPhanTu()">e. Kiểm tra phần tử</button><br><br>
+
+    <div id="output"></div>
+
+    <script>
+        let mang = [];
+
+        function layMang() {
+            let input = document.getElementById("mangInput").value;
+            mang = input.split(",").map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+        }
+
+        function xuatMang() {
+            layMang();
+            document.getElementById("output").textContent = "Mảng hiện tại: " + mang.join(", ");
+        }
+
+        function daoNguoc() {
+            layMang();
+            let dao = [...mang].reverse();
+            document.getElementById("output").textContent = "Mảng sau khi đảo ngược: " + dao.join(", ");
+        }
+
+        function sapXep() {
+            layMang();
+            let sapXepTang = [...mang].sort((a, b) => a - b);
+            document.getElementById("output").textContent = "Mảng tăng dần: " + sapXepTang.join(", ");
+        }
+
+        function tongChan() {
+            layMang();
+            let tong = 0;
+            for (let i = 0; i < mang.length; i++) {
+            if (mang[i] % 2 === 0) {
+            tong += mang[i];
+        }
+    }
+    document.getElementById("output").textContent = "Tổng các phần tử chẵn: " + tong;
+}
+
+        function kiemTraPhanTu() {
+            layMang();
+            let x = prompt("Nhập phần tử cần kiểm tra:");
+            x = parseInt(x);
+
+            if (isNaN(x)) {
+                document.getElementById("output").textContent = "Vui lòng nhập một số hợp lệ.";
+                return;
+            }
+
+            let viTri = mang.indexOf(x);
+            if (viTri !== -1) {
+                document.getElementById("output").textContent = `Phần tử ${x} có trong mảng tại vị trí: ${viTri + 1}`;
+            } else {
+                document.getElementById("output").textContent = `Phần tử ${x} không có trong mảng.`;
+            }
+        }
+    </script>
+</body>
+</html>
